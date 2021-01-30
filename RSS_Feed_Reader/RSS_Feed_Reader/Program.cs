@@ -7,13 +7,22 @@ namespace RSS_Feed_Reader
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
-            FeedManager operations = new FeedManager("FirstTry.xml");
+            
+            FeedManager operations = new FeedManager("Feeds.xml");
             operations.Notify += DisplayMessage;
 
+            string url = "http://feeds.feedburner.com/techulator/articles";
+            string feedname1 = "Avoiding API Integration Mistakes for App Developers";
+            string feedname2 = "Best Ways to Delete Similar Photos on Windows PC";
+            operations.AddFeed(feedname1, url);
+            operations.AddFeed(feedname2, url);
 
-            operations.DownloadFeed("Windows");           
+            operations.RemoveFeed(feedname1);
+
+            operations.DownloadFeed(feedname2);           
             Console.WriteLine("done");
         }
 
@@ -21,5 +30,7 @@ namespace RSS_Feed_Reader
         {
             Console.WriteLine(message);
         }
+
+        
     }
 }
