@@ -25,7 +25,7 @@ namespace RSS_Feed_Reader
 
         }
 
-        public void RemoveData(string nodeToDelete, string value)
+        public void RemoveData(string node, string value)
         {
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(Filename);
@@ -33,7 +33,7 @@ namespace RSS_Feed_Reader
             {
                 for (var i = 0; i < xmlDoc.DocumentElement.ChildNodes.Count; ++i)
                 {
-                    var name = xmlDoc.DocumentElement.ChildNodes[i].SelectSingleNode(nodeToDelete);
+                    var name = xmlDoc.DocumentElement.ChildNodes[i].SelectSingleNode(node);
 
                     if (name == null || (name.InnerText != @value))
                     {
@@ -87,7 +87,5 @@ namespace RSS_Feed_Reader
                new XElement("Url", feedURL)));
             xDocument.Save(Filename);
         }
-
-
     }
 }

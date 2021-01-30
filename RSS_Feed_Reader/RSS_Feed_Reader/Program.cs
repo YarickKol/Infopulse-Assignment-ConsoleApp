@@ -10,17 +10,16 @@ namespace RSS_Feed_Reader
         static void Main(string[] args)
         {
             FeedManager operations = new FeedManager("FirstTry.xml");
-            string url = "http://feeds.feedburner.com/techulator/articles";
-            XmlReader reader = XmlReader.Create(url);
-            SyndicationFeed feed = SyndicationFeed.Load(reader);
-            reader.Close();
-            //foreach (SyndicationItem item in feed.Items)
-            //{
-            //    operations.AddFeed(item.Title.Text, url);
+            operations.Notify += DisplayMessage;
 
-            //}
-            operations.RemoveFeed("How to merge several PDFs or images into a single file on iOS");
+
+            operations.DownloadFeed("Windows");           
             Console.WriteLine("done");
-        }        
+        }
+
+        private static void DisplayMessage(string message)
+        {
+            Console.WriteLine(message);
+        }
     }
 }
