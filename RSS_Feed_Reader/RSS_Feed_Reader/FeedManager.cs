@@ -22,11 +22,7 @@ namespace RSS_Feed_Reader
         }
         public void RemoveFeed(string feedname)
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(file.Filename);
-            XmlNode t = xmlDoc.SelectSingleNode($"/Feed_list/Feed/Name={feedname}");
-            t.ParentNode.RemoveChild(t);
-            xmlDoc.Save(file.Filename);
+            file.RemoveData("Name", feedname);
         }
         public void DownloadFeed(string name)
         {

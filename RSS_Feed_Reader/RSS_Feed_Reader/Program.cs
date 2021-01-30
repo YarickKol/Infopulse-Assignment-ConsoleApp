@@ -19,7 +19,7 @@ namespace RSS_Feed_Reader
             //    operations.AddFeed(item.Title.Text, url);
 
             //}
-            operations.RemoveFeed("3 Ways to Configure a Proxy Server on Android");
+            operations.RemoveFeed("How to merge several PDFs or images into a single file on iOS");
             Console.WriteLine("done");
         }        
     }

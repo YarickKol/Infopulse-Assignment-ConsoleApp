@@ -25,29 +25,32 @@ namespace RSS_Feed_Reader
 
         }
 
-        public void DeleteData()
+        public void RemoveData(string nodeToDelete, string value)
         {
-            XElement root = XElement.Parse(@"<Root>
-    <Child1>
-        <GrandChild1/>
-        <GrandChild2/>
-        <GrandChild3/>
-    </Child1>
-    <Child2>
-        <GrandChild4/>
-        <GrandChild5/>
-        <GrandChild6/>
-    </Child2>
-    <Child3>
-        <GrandChild7/>
-        <GrandChild8/>
-        <GrandChild9/>
-    </Child3>
-</Root>");
-            root.Element("Feed").Element("GrandChild1").Remove();
-            root.Element("Child2").Elements().ToList().Remove();
-            root.Element("Child3").Elements().Remove();
-            Console.WriteLine(root);
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(Filename);
+            if (xmlDoc.DocumentElement != null)
+            {
+                for (var i = 0; i < xmlDoc.DocumentElement.ChildNodes.Count; ++i)
+                {
+                    var name = xmlDoc.DocumentElement.ChildNodes[i].SelectSingleNode(nodeToDelete);
+
+                    if (name == null || (name.InnerText != @value))
+                    {
+                        continue;
+                    }
+
+                    var nodeToRemove = xmlDoc.DocumentElement.ChildNodes[i];
+
+                    if (nodeToRemove.ParentNode != null)
+                    {
+                        nodeToRemove.ParentNode.RemoveChild(nodeToRemove);
+                    }
+
+                    break;
+                }
+            }
+            xmlDoc.Save(Filename);
         }
 
         private void CreateNewData(string feedName, string feedURL)
@@ -84,5 +87,7 @@ namespace RSS_Feed_Reader
                new XElement("Url", feedURL)));
             xDocument.Save(Filename);
         }
+
+
     }
 }
